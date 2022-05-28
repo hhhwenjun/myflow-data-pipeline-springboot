@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/MyFlow.iml" filepath="$PROJECT_DIR$/MyFlow.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/executor/executor.iml" filepath="$PROJECT_DIR$/executor/executor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/master/master.iml" filepath="$PROJECT_DIR$/master/master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/model/model.iml" filepath="$PROJECT_DIR$/model/model.iml" />
+    </modules>
+  </component>
+</project>

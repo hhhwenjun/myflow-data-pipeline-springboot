@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "jsonConfigPath",
+      "type": "java.lang.String",
+      "description": "Description for jsonConfigPath."
+  }
+] }

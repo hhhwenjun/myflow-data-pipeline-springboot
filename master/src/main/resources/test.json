@@ -1,0 +1,120 @@
+{
+  "projectId": 1,
+  "projectName": "projectA",
+  "dataSource": [
+    {
+      "url": "ssss",
+      "userName": "sss",
+      "password": "ssss",
+      "driver": "ssss",
+      "name": "source"
+    },
+    {
+      "url": "qqqq",
+      "userName": "qqq",
+      "password": "qqqq",
+      "driver": "qqqq",
+      "name": "dest"
+    }
+  ],
+  "tasks":[
+    {
+      "taskId": 1,
+      "taskName": "task1",
+      "cron": "0 0 0 * * ?",
+      "steps": [
+        {
+          "order": 1,
+          "stepName": "step1",
+          "type": "hive",
+          "path": "/dev/shm/test.hql",
+          "hiveParam":{
+            "var1":"2013"
+          },
+          "path": "/dev/shm/test3.hql"
+        },
+        {
+          "order": 2,
+          "stepName": "step2",
+          "type": "spark",
+          "path": "/dev/shm/SparkExample-1.0-SNAPSHOT.jar",
+          "master": "local[*]",
+          "deployMode": "client",
+          "className": "com.mez.test.SparkHiveExample"
+        }
+      ]
+    },
+    {
+      "taskId": 2,
+      "taskName": "task2",
+      "cron": "0 0 0 0 * ?",
+      "steps": [
+        {
+          "order": 1,
+          "stepName": "step1",
+          "type": "hive",
+          "path": "/dev/shm/test.hql"
+        },
+        {
+          "order": 1,
+          "stepName": "step2",
+          "type": "hive",
+          "path": "/dev/shm/test.hql"
+        },
+        {
+          "order": 2,
+          "stepName": "step3",
+          "type": "spark",
+          "path": "/dev/shm/test.jar"
+        },
+        {
+          "order": 3,
+          "stepName": "step4",
+          "type": "hdfs",
+          "mode": "copy2local",
+          "source": "/hive/warehouse/student.csv",
+          "destination": "/dev/shm"
+        },
+        {
+          "order": 4,
+          "stepName": "step5",
+          "type": "script",
+          "mode": "python3",
+          "path": "/dev/shm/test.py",
+          "param": "2021-11-1"
+        },
+        {
+          "order": 5,
+          "stepName": "step6",
+          "type": "dataloader",
+          "mode": "hive",
+          "sourceDataSource": "source",
+          "destDataSource": "dest",
+          "tables": ["test.student_final", "test.b"],
+          "destTables": ["mysqlTest.student_final",
+            "mysqlTest.b"]
+        },
+        {
+          "order": 6,
+          "stepName": "step7",
+          "type": "dataloader",
+          "mode": "csv",
+          "sourcePath": "/dev/shm",
+          "destDatasource": "dest",
+          "sourceCSV": ["student_final.csv",
+            "b.csv"],
+          "destTables": ["mysqlTest.student_final",
+            "mysqlTest.b"]
+        },
+        {
+          "order": 7,
+          "stepName": "step8",
+          "type": "custom",
+          "path": "/deb/shm/test.jar",
+          "className": "com.onecareer.of.test.test",
+          "function": "helloWorld"
+        }
+      ]
+    }
+  ]
+}
