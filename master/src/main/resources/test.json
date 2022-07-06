@@ -27,7 +27,6 @@
           "order": 1,
           "stepName": "step1",
           "type": "hive",
-          "path": "/dev/shm/test.hql",
           "hiveParam":{
             "var1":"2013"
           },
@@ -36,11 +35,11 @@
         {
           "order": 2,
           "stepName": "step2",
-          "type": "spark",
-          "path": "/dev/shm/SparkExample-1.0-SNAPSHOT.jar",
-          "master": "local[*]",
-          "deployMode": "client",
-          "className": "com.mez.test.SparkHiveExample"
+          "type": "hive",
+          "hiveParam": {
+            "var1": "2012"
+          },
+          "path": "/dev/shm/test3.hql"
         }
       ]
     },

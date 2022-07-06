@@ -51,7 +51,7 @@ public class HiveServiceImpl implements HiveService {
         appLogger.info("run hive query for map");
         appLogger.info(sql);
         Map<String,Object> resMap = hiveJdbcTemplate.queryForMap(sql);
-        // resMap.get(0).get("id)
+        // resMap.get(0).get(id)
         appLogger.info("Hive SQL executed");
         return resMap;
     }
