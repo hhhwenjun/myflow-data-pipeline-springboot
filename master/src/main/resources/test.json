@@ -22,6 +22,7 @@
       "taskId": 1,
       "taskName": "task1",
       "cron": "0 0 0 * * ?",
+      "group": "testPipeline",
       "steps": [
         {
           "order": 1,

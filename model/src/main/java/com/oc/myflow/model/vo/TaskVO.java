@@ -8,6 +8,16 @@ public class TaskVO {
     private String cron;
     private List<StepVO> steps;
 
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
+    }
+
+    private String group;
+
     public List<StepVO> getSteps() {
         return steps;
     }
