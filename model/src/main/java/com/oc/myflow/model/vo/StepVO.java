@@ -10,23 +10,34 @@ public class StepVO {
     // some steps have path
     private String path;
 
-    /** Hive related steps **/
+    /**
+     * Hive related steps
+     **/
     private Map<String, Object> hiveParam; // use hash map
 
-    /** Spark related steps **/
+    /**
+     * Spark related steps
+     **/
     private String master;
     private String deployMode;
     private String className;
+    private String sparkLogPath;
 
-    /** HDFS **/
+    /**
+     * HDFS
+     **/
     private String mode;
     private String source;
     private String destination;
 
-    /** Script (python) **/
+    /**
+     * Script (python)
+     **/
     private String param;
 
-    /** Data loader **/
+    /**
+     * Data loader
+     **/
     private String sourceDataSource;
     private String destDataSource;
     private String sourcePath;
@@ -34,7 +45,9 @@ public class StepVO {
     private List<String> destTables;
     private List<String> sourceCSV;
 
-    /** Customer **/
+    /**
+     * Customer
+     **/
     private String function;
 
     public String getOrder() {
@@ -95,6 +108,14 @@ public class StepVO {
 
     public String getClassName() {
         return className;
+    }
+
+    public String getSparkLogPath() {
+        return sparkLogPath;
+    }
+
+    public void setSparkLogPath(String sparkLogPath) {
+        this.sparkLogPath = sparkLogPath;
     }
 
     public void setClassName(String className) {

@@ -1,13 +1,9 @@
 package com.oc.myflow;
 
-import com.oc.myflow.common.ConfigUtil;
+import com.oc.myflow.common.utils.ConfigUtil;
 import com.oc.myflow.executor.executorjob.ExecutorJob;
-import com.oc.myflow.executor.job.HiveJob;
-import com.oc.myflow.executor.listener.OrderListener;
-import com.oc.myflow.executor.service.impl.HiveServiceImpl;
 import com.oc.myflow.model.scheduler.JobDescriptor;
 import com.oc.myflow.model.vo.ConfigVO;
-import com.oc.myflow.model.vo.StepVO;
 import org.quartz.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

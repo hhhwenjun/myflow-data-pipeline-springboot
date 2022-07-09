@@ -1,4 +1,4 @@
-package com.oc.myflow.common;
+package com.oc.myflow.common.utils;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import com.oc.myflow.model.vo.ConfigVO;

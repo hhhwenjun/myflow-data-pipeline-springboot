@@ -342,5 +342,9 @@
     <orderEntry type="library" name="Maven: org.apache.zookeeper:zookeeper:3.4.6" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-log4j12:1.7.32" level="project" />
     <orderEntry type="library" name="Maven: log4j:log4j:1.2.16" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.spark:spark-launcher_2.13:3.3.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.spark:spark-tags_2.13:3.3.0" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang:scala-library:2.13.8" level="project" />
+    <orderEntry type="library" name="Maven: org.spark-project.spark:unused:1.0.0" level="project" />
   </component>
 </module>

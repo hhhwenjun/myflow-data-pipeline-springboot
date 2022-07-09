@@ -79,6 +79,12 @@
             <artifactId>hive-jdbc</artifactId>
             <version>3.1.2</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-launcher -->
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-launcher_2.13</artifactId>
+            <version>3.3.0</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -1,6 +1,8 @@
 package com.oc.myflow.executor.executorjob;
 
 import com.oc.myflow.executor.job.HiveJob;
+import com.oc.myflow.executor.job.ScriptJob;
+import com.oc.myflow.executor.job.SparkJob;
 import com.oc.myflow.executor.listener.OrderListener;
 import com.oc.myflow.model.scheduler.JobDescriptor;
 import com.oc.myflow.model.vo.StepVO;
@@ -50,6 +52,8 @@ public class ExecutorJob implements Job {
             jobDescriptor.setGroup(group);
             jobDescriptor.setName(taskName);
             jobDescriptor.setName(stepVO.getStepName());
+            paramMap.put("order", stepVO.getOrder());
+            paramMap.put("stepName", stepVO.getStepName());
             if (type.equals("hive")) {
                 // connect to hive database, usually each company has only 1
                 // only 1 configuration
@@ -57,12 +61,21 @@ public class ExecutorJob implements Job {
                 // put the JSON path
                 // Java reflection: any object inherit the job class, no need to know which class
                 jobDescriptor.setJobClazz(HiveJob.class);
-                paramMap.put("order", stepVO.getOrder());
-                paramMap.put("stepName", stepVO.getStepName());
                 paramMap.put("path", stepVO.getPath());
                 paramMap.put("hiveParam", stepVO.getHiveParam());
-            } else if (type.equals("spark")){
-                // jobDescriptor.setJobClazz(SparkJob.class);
+            } else if (type.equals("script")){
+                jobDescriptor.setJobClazz(ScriptJob.class);
+                paramMap.put("path", stepVO.getPath());
+                paramMap.put("param", stepVO.getParam());
+                paramMap.put("mode", stepVO.getMode());
+            }
+            else if (type.equals("spark")){
+                jobDescriptor.setJobClazz(SparkJob.class);
+                paramMap.put("path", stepVO.getPath());
+                paramMap.put("master", stepVO.getMaster());
+                paramMap.put("deployMode", stepVO.getDeployMode());
+                paramMap.put("className", stepVO.getClassName());
+                paramMap.put("sparkLogPath", stepVO.getSparkLogPath());
             }
             jobDescriptor.setDataMap(paramMap);
             JobDetail jobDetail = jobDescriptor.buildJobDetail();
