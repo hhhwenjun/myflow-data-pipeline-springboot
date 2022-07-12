@@ -41,6 +41,16 @@
             "var1": "2012"
           },
           "path": "/dev/shm/test3.hql"
+        },
+        {
+          "order": 3,
+          "stepName": "step3",
+          "type": "spark",
+          "deployMode": "Client",
+          "master": "local[*]",
+          "className": "com.mez,test.SparkHiveExample",
+          "path": "/dev/shm/SparkExample-1.0-SNAPSHOT.jar",
+          "sparkLogPath": "/dev/shm/sparkLog/"
         }
       ]
     },

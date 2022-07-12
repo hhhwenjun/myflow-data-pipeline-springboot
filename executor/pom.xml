@@ -80,6 +80,7 @@
             <version>3.1.2</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-launcher -->
+        <!-- need to be compatible with scala version -->
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-launcher_2.13</artifactId>

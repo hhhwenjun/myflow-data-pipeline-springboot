@@ -1,5 +1,6 @@
 package com.oc.myflow.executor.executorjob;
 
+import com.oc.myflow.executor.job.HdfsJob;
 import com.oc.myflow.executor.job.HiveJob;
 import com.oc.myflow.executor.job.ScriptJob;
 import com.oc.myflow.executor.job.SparkJob;
@@ -54,7 +55,7 @@ public class ExecutorJob implements Job {
             jobDescriptor.setName(stepVO.getStepName());
             paramMap.put("order", stepVO.getOrder());
             paramMap.put("stepName", stepVO.getStepName());
-            if (type.equals("hive")) {
+            if (type.equalsIgnoreCase("hive")) {
                 // connect to hive database, usually each company has only 1
                 // only 1 configuration
                 // run sql command in your hive database
@@ -63,19 +64,25 @@ public class ExecutorJob implements Job {
                 jobDescriptor.setJobClazz(HiveJob.class);
                 paramMap.put("path", stepVO.getPath());
                 paramMap.put("hiveParam", stepVO.getHiveParam());
-            } else if (type.equals("script")){
+            } else if (type.equalsIgnoreCase("script")){
                 jobDescriptor.setJobClazz(ScriptJob.class);
                 paramMap.put("path", stepVO.getPath());
                 paramMap.put("param", stepVO.getParam());
                 paramMap.put("mode", stepVO.getMode());
             }
-            else if (type.equals("spark")){
+            else if (type.equalsIgnoreCase("spark")){
                 jobDescriptor.setJobClazz(SparkJob.class);
                 paramMap.put("path", stepVO.getPath());
                 paramMap.put("master", stepVO.getMaster());
                 paramMap.put("deployMode", stepVO.getDeployMode());
                 paramMap.put("className", stepVO.getClassName());
                 paramMap.put("sparkLogPath", stepVO.getSparkLogPath());
+            }
+            else if (type.equalsIgnoreCase("HDFS")){
+                jobDescriptor.setJobClazz(HdfsJob.class);
+                paramMap.put("mode", stepVO.getMode()); // location transport
+                paramMap.put("source", stepVO.getSource());
+                paramMap.put("destination", stepVO.getDestination());
             }
             jobDescriptor.setDataMap(paramMap);
             JobDetail jobDetail = jobDescriptor.buildJobDetail();
