@@ -51,6 +51,15 @@
           "className": "com.mez,test.SparkHiveExample",
           "path": "/dev/shm/SparkExample-1.0-SNAPSHOT.jar",
           "sparkLogPath": "/dev/shm/sparkLog/"
+        },
+        {
+          "order": 4,
+          "stepName": "step4",
+          "type": "function",
+          "path": "/Users/.../functions-1.0-SNAPSHOT.jar",
+          "className": "com.oc.myflow.functions.CustomFunc",
+          "methodName": "add",
+          "funcParamList": ["a=1", "b=2", "name=yourname"]
         }
       ]
     },

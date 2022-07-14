@@ -46,7 +46,7 @@ public class HdfsJob implements Job {
             } else if (mode.equalsIgnoreCase("copyToLocal")){
                 String srcPath = paramMap.getString("source");
                 String destPath = paramMap.getString("destination");
-                fs.copyFromLocalFile(new Path(srcPath), new Path(destPath));
+                fs.copyToLocalFile(new Path(srcPath), new Path(destPath));
 
             } else {
                 appLogger.warn("Mode " + mode + " not be implemented yet");

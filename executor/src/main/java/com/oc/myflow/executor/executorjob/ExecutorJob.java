@@ -1,9 +1,6 @@
 package com.oc.myflow.executor.executorjob;
 
-import com.oc.myflow.executor.job.HdfsJob;
-import com.oc.myflow.executor.job.HiveJob;
-import com.oc.myflow.executor.job.ScriptJob;
-import com.oc.myflow.executor.job.SparkJob;
+import com.oc.myflow.executor.job.*;
 import com.oc.myflow.executor.listener.OrderListener;
 import com.oc.myflow.model.scheduler.JobDescriptor;
 import com.oc.myflow.model.vo.StepVO;
@@ -83,6 +80,20 @@ public class ExecutorJob implements Job {
                 paramMap.put("mode", stepVO.getMode()); // location transport
                 paramMap.put("source", stepVO.getSource());
                 paramMap.put("destination", stepVO.getDestination());
+            }
+            else if (type.equalsIgnoreCase("function")){
+                jobDescriptor.setJobClazz(FuncJob.class);
+                paramMap.put("path", stepVO.getPath());
+                paramMap.put("className", stepVO.getClassName());
+                paramMap.put("methodName", stepVO.getMethodName());
+                Map<String, String> funcParamMap = new HashMap<>();
+                if (stepVO.getFuncParamList() != null){
+                    stepVO.getFuncParamList().forEach(str -> {
+                        String[] tempArr = str.split("=");
+                        funcParamMap.put(tempArr[0], tempArr[1]);
+                    });
+                    paramMap.put("funcParamMap", funcParamMap);
+                }
             }
             jobDescriptor.setDataMap(paramMap);
             JobDetail jobDetail = jobDescriptor.buildJobDetail();

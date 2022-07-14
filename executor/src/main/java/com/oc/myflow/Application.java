@@ -59,8 +59,14 @@ public class Application {
             paramMap.put("cron", cron);
             paramMap.put("taskVO", taskVO);
             paramMap.put("group", group);
+            paramMap.put("dataSources", dataSources);
+
             jobDescriptor.setDataMap(paramMap);
             JobDetail executorJobDetail = jobDescriptor.buildJobDetail();
+
+            // If require other operations between jobs, use function oo programming(new project, new jar)
+            // create a function class, input: paramMap, the output store in paramMap
+            // and get the result from the same paramMap
 
             // after creating the job steps, put them into the schedule
             Trigger jobTrigger = TriggerBuilder.newTrigger()
