@@ -11,9 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.hadoop.hive.HiveTemplate;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 
 import javax.annotation.PostConstruct;
 import java.io.FileNotFoundException;
+import java.sql.Driver;
 import java.util.*;
 
 
@@ -24,6 +28,12 @@ public class Application {
 
     @Autowired
     private Scheduler scheduler;
+
+    @Autowired
+    private JdbcTemplate hiveJdbcTemplate; // jdbc, run sql
+
+    @Autowired
+    private HiveTemplate hiveTemplate; // run hql
 
     @Value("${jsonConfigPath}")
     private String jsonConfigPath;
@@ -59,7 +69,7 @@ public class Application {
             paramMap.put("cron", cron);
             paramMap.put("taskVO", taskVO);
             paramMap.put("group", group);
-            paramMap.put("dataSources", dataSources);
+            paramMap.put("dataSourceMap", getDataSourceMap(dataSources));
 
             jobDescriptor.setDataMap(paramMap);
             JobDetail executorJobDetail = jobDescriptor.buildJobDetail();
@@ -81,6 +91,37 @@ public class Application {
             }
 
         });
+    }
 
+    public Map<String, Object> getDataSourceMap(List<ConfigVO.DataSource> dataSources){
+        Map<String, Object> dataSourceMap = new HashMap<>();
+
+        dataSources.forEach(dataSource -> {
+            if (dataSource.getName().equals("hive")){
+                dataSourceMap.put("hive", hiveJdbcTemplate);
+                dataSourceMap.put("hiveTemplate", hiveTemplate);
+            }
+            else {
+                // create a data source
+                SimpleDriverDataSource ds = new SimpleDriverDataSource();
+                Class<?> cls = null;
+                try {
+                    // provide your data source driver
+                    cls = Class.forName(dataSource.getDriver());
+                    ds.setDriverClass((Class<? extends Driver>) cls);
+                    ds.setUrl(dataSource.getUrl());
+                    ds.setUsername(dataSource.getUserName());
+                    ds.setPassword(dataSource.getPassword());
+
+                    // create jdbc template
+                    JdbcTemplate jtm = new JdbcTemplate(ds);
+                    dataSourceMap.put(dataSource.getName(), jtm);
+
+                } catch (Exception e){
+                    appLogger.error("Error", e);
+                }
+            }
+        });
+        return dataSourceMap;
     }
 }

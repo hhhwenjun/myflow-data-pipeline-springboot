@@ -10,11 +10,11 @@
       "name": "source"
     },
     {
-      "url": "qqqq",
-      "userName": "qqq",
+      "url": "jdbc:mysql://localhost:3306/test",
+      "userName": "root",
       "password": "qqqq",
-      "driver": "qqqq",
-      "name": "dest"
+      "driver": "com.mysql.jdbc.Driver",
+      "name": "destSourceMySQL"
     }
   ],
   "tasks":[

@@ -95,6 +95,15 @@ public class ExecutorJob implements Job {
                     paramMap.put("funcParamMap", funcParamMap);
                 }
             }
+            else if (type.equalsIgnoreCase("Dataloader")){
+                jobDescriptor.setJobClazz(DataloaderJob.class);
+                paramMap.put("sourceDataSource", stepVO.getSourceDataSource());
+                paramMap.put("destDataSource", stepVO.getDestDataSource());
+                paramMap.put("sourcePath", stepVO.getSourcePath());
+                paramMap.put("sourceTables", stepVO.getSourceTables());
+                paramMap.put("destTables", stepVO.getDestTables());
+                paramMap.put("sourceCSV", stepVO.getSourceCSV());
+            }
             jobDescriptor.setDataMap(paramMap);
             JobDetail jobDetail = jobDescriptor.buildJobDetail();
             jobDetailQueue.add(jobDetail);
