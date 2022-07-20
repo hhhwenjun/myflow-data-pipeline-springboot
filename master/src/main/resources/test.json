@@ -107,9 +107,9 @@
           "stepName": "step6",
           "type": "dataloader",
           "mode": "hive",
-          "sourceDataSource": "source",
-          "destDataSource": "dest",
-          "tables": ["test.student_final", "test.b"],
+          "sourceDataSource": "hive",
+          "destDataSource": "mysql1",
+          "sourceTables": ["test.student_final", "test.b"],
           "destTables": ["mysqlTest.student_final",
             "mysqlTest.b"]
         },

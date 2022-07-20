@@ -1,6 +1,7 @@
 package com.oc.myflow.executor.job;
 
 
+import com.oc.myflow.executor.handler.DataTransferHandler;
 import org.quartz.Job;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
@@ -49,29 +50,17 @@ public class DataloaderJob implements Job {
 
                 // id name age
                 // 1 jake 22
-                appLogger.info("select * from sourceTable");
-                List<Map<String, Object>> res =
-                        sourceJtm.queryForList("select * from " + sourceTable);
-                if (res.isEmpty()){
-                    appLogger.info("No data found in table " + sourceTable);
-                } else {
-                    Set<String> keySet = res.get(0).keySet();
-                    List<String> keyList = new ArrayList(keySet);
-                    List<String> valueStrList = new ArrayList<>();
-                    res.forEach(rowMap -> {
-                        List<String> valueList = new ArrayList<>();
-                        keyList.forEach(key -> {
-                            valueList.add(String.valueOf(rowMap.get(key)));
-                        });
-                        String valueStr = "(" + String.join(",", valueList) + ")";
-                        valueStrList.add(valueStr);
-                    });
-                    appLogger.info("insert into " + destTable +
-                            " " + String.join(",", valueStrList));
-                    destJtm.execute("insert into " + destTable
-                            + "(" + String.join(",", keyList)
-                            + ") values(" + String.join(",", valueStrList) + ")");
-                }
+                appLogger.info("select * from " + sourceTable);
+                DataTransferHandler dataTransferHandler =
+                        new DataTransferHandler(destJtm, destTable);
+
+                // for big data, each time read a line (or 10/100 lines)
+                // need a rowback handler
+                sourceJtm.query("select * from " + sourceTable, dataTransferHandler);
+                dataTransferHandler.saveRest();
+                // select * from can only be used for a small amount of data
+                // if the table is too large, ram is not enough
+
                 appLogger.info("Load data from " + sourceTable + " to " + destTable + "complete");
             }
             appLogger.info("Dataloader job is done");
